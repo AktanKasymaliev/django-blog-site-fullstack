@@ -4,7 +4,7 @@ from blogs.models import Comments, Post
 from django.views import generic
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import redirect, render
-from .decorators import get_query, query_debugger, query_debugger
+from .decorators import get_query, query_debugger
 
 class HomePage(generic.ListView):
     template_name = 'blogs/home.html'
@@ -24,7 +24,6 @@ class HomePage(generic.ListView):
             context["posts"] = paginator.page(paginator.num_pages)
         return render(request, 'blogs/home.html', context)
 
-
 class DetailPage(generic.DetailView, generic.CreateView):
     template_name = 'blogs/read.html'
     model = Post
@@ -37,6 +36,7 @@ class DetailPage(generic.DetailView, generic.CreateView):
         context['reply_to_reply'] = self.reply_to_reply
         context.update(self.context_data)
         return context
+
 
     @get_query
     # @query_debugger
@@ -55,18 +55,17 @@ class DetailPage(generic.DetailView, generic.CreateView):
         self.context_data = context_data
         return super().get(request, *args, **kwargs)
 
-    def post(self, request, pk):
-        form = self.form_class(request.POST)
-        post = Post.objects.get(pk=pk)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.post = post
-            comment.author = request.user
-            comment.sent_at = timezone.now()
-            comment.save()
-            return redirect('home')
-        else:
-            form = self.form_class()
-        return render(request, 'blogs/read.html', locals())
 
-        
+    # def post(self, request, pk):
+    #     form = self.form_class(request.POST)
+    #     post = Post.objects.get(pk=pk)
+    #     if form.is_valid():
+    #         comment = form.save(commit=False)
+    #         comment.post = post
+    #         comment.author = request.user
+    #         comment.sent_at = timezone.now()
+    #         comment.save()
+    #         return redirect('home')
+    #     else:
+    #         form = self.form_class()
+    #     return render(request, 'blogs/read.html', locals())

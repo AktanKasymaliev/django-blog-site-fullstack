@@ -11,11 +11,10 @@ def get_query(func):
             obj.reply_to_comments = ReplyToComment.objects.select_related("post").filter(post=kwargs.get('pk', 0)).order_by('-sent_at')
             obj.reply_to_reply = ReplyToReply.objects.select_related("post").filter(post=kwargs.get('pk', 0)).order_by('-sent_at')
             return func(obj, *args, **kwargs)
-        except Exception as e:
+        except (Comments.DoesNotExist, ReplyToComment.DoesNotExist,
+                ReplyToReply.DoesNotExist):
             return render(*args, 'errors/500.html')
     return wrapper
-
-
 
 def query_debugger(func):
 

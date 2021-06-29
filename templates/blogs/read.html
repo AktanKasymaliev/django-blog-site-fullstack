@@ -9,10 +9,11 @@
 {% block title %}<title>{{ post.title }}</title>{% endblock title %}
 
 {% block body %}
+
       <div class="parent">
         <div class="block" style="margin-top: 30px; border-radius: 20px; height: 100%;">
             <br>
-            <h4 class='title'>{{ post.title }}</h4>
+            <h2 class='title'>{{ post.title }}</h2>
             <br>
         {% if post %}
           {% autoescape off %}
@@ -65,21 +66,33 @@
 
           <div class="mb-3" style="margin-left: 300px; margin-top: 30px;">
             <h5 id='leave_com'>Оставить комментарий</h5>
-            <form method="post" style="margin-top: 1.3em; width: 500px;">
-              {{ form.as_p }}
-              {% csrf_token %}
-              <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
-            </form>
+            <div class="mb-3" style="width: 500px;">
+              <label for="exampleFormControlTextarea1" class="form-label">Написать комментарий</label>
+              <textarea class="form-control textarea_message" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+              <button type="submit" id='btn' class="btn btn-primary  btn-lg">Отправить</button>
+            
+              <!-- <div id="successful" style="width: 200px; margin-left: 550px;">
+                <div id="container" style="background-color: cadetblue; height: 150px;">
+                  asdasdasdas
+                </div>  
+              </div> -->
           </div>
     </div>
+
     {% endblock body %}
 
 
 {% block js %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bubbly-bg@1.0.0/dist/bubbly-bg.js"></script>
 <script src="{% static 'js/bubbly-bg.js' %}"></script>
+<script src="{% static 'js/add_comment.js' %}"></script>
+<script>
+    var csrf = '{{ csrf_token }}'
+    var post = '{{ post.id }}';
+  </script>
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 {% endblock js %}

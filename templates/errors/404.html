@@ -2,11 +2,11 @@
 {% load static %}
 
 {% block links %}
-<link rel="stylesheet" href="{% static 'css/errors/500.css' %}">
+<link rel="stylesheet" href="{% static 'css/errors/404.css' %}">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 {% endblock links %}
 
-{% block title %}<title>500</title>{% endblock title %}
+{% block title %}<title>404</title>{% endblock title %}
 
 {% block body %}
       <div class="parent">
@@ -16,7 +16,9 @@
             <br>
           {% autoescape off %}
                 <div class="text">
-                    <h2>Что-то пошло не так!</h2>
+                    <h2>Такой страницы не найдено :(</h2>
+                    <br>
+                    <img id='gif' src="https://media.giphy.com/media/UoeaPqYrimha6rdTFV/giphy.gif" alt="404 error">
                 </div>
             </div>
           {% endautoescape %}

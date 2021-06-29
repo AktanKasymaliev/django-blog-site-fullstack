@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get("DJANGO_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = eval(os.environ.get("DJANGO_DEBUG"))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     'blogs',
+    'api',
 
+    'rest_framework',
     "ckeditor",
     "ckeditor_uploader",
     'django_cleanup',
