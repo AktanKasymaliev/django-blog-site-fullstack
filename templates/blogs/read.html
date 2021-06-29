@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block links %}
+<link rel="stylesheet" href="{% static 'css/read.css' %}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+{% endblock links %}
+
+{% block title %}<title>{{ post.title }}</title>{% endblock title %}
+
+{% block body %}
+      <div class="parent">
+        <div class="block" style="margin-top: 30px; border-radius: 20px; height: 100%;">
+            <br>
+            <h4 class='title'>{{ post.title }}</h4>
+            <br>
+        {% if post %}
+          {% autoescape off %}
+                <div class="text">
+                    {{ post.text }}
+                </div>
+            </div>
+          {% endautoescape %}
+
+        {% else %}
+            <h6 style="text-align: center; font-size: 50px; margin-top: 200px;">Пока нет никаких публикаций</h6>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="comments">
+        <div class="content">
+            <br>
+            <h2 class='title'>Коментарии</h2>
+            <br>
+            <div class='messages'>
+            {% for comment in comments %}
+              <h5 style="color: blue; padding-bottom: 10px; font-style: italic;">
+                {{ comment.author }}:</h5> <h6 class="text-muted time" style="margin-left: 30px;">{{ comment.sent_at }}</h6>
+                 <p id='comment_message'>{{ comment.message }}</p>
+            {% endfor %}
+          </div>
+
+          <div id='pagination' style="margin-left: 900px;">
+            <nav aria-label="Page navigation example">
+                {% if comments.has_other_pages %}
+                <ul class="pagination">
+                  {% if comments.has_previous %}
+                  <li class="page-item"><a class="page-link" href="?page={{ comments.previous_page_number }}">Предыдущая</a></li>
+                  {% endif %}
+                  {% for i in comments.paginator.page_range %}
+                    {% if comments.number == i %}
+                      <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% elif i >  comments.number|add:-2 and i < comments.number|add:2 %}
+                      <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                  {% endfor %}
+                  {% if comments.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ comments.next_page_number }}">Следующая</a></li>
+                  {% endif %}
+                </ul>
+              </nav>
+            {% endif %}
+            </div>
+
+          <div class="mb-3" style="margin-left: 300px; margin-top: 30px;">
+            <h5 id='leave_com'>Оставить комментарий</h5>
+            <form method="post" style="margin-top: 1.3em; width: 500px;">
+              {{ form.as_p }}
+              {% csrf_token %}
+              <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
+            </form>
+          </div>
+    </div>
+    {% endblock body %}
+
+
+{% block js %}
+<script src="https://cdn.jsdelivr.net/npm/bubbly-bg@1.0.0/dist/bubbly-bg.js"></script>
+<script src="{% static 'js/bubbly-bg.js' %}"></script>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+{% endblock js %}
