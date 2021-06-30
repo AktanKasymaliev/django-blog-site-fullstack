@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-light bg-light" style="border-radius: 15px;">
+    <nav class="navbar navbar-light bg-light" id="navbar" style="border-radius: 20px;">
         <a class="navbar-brand" href="{% url 'home' %}">
             <img src="{% static 'img/logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
             BlogSite
@@ -36,11 +36,6 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ el.title }}</h5>
                     <p class="card-text">{{ el.text|truncatewords:5 }}</p>
-                    {% if el.image %}
-                    <img src="{{ el.image.url }}"|default_if_none:"#" style="max-height: 300px; max-width: 300px;">
-                    <br>
-                    <br>
-                    {% endif %}
                     <a href="#" class="btn btn-primary">Read</a>
                 </div>
                 <div class="card-header">
@@ -85,6 +80,17 @@
 {% block js %}
 <script src="https://cdn.jsdelivr.net/npm/bubbly-bg@1.0.0/dist/bubbly-bg.js"></script>
 <script src="{% static 'js/bubbly-bg.js' %}"></script>
+<script>
+  var $navFix = $("#navbar");
+  
+  $(window).scroll(function(){
+    if ( $(this).scrollTop() > 120){ // 120 это высота прокрутки
+      $navFix.addClass;
+    } else if($(this).scrollTop() <= 120) {
+      $navFix.removeClass("fixed");
+    }
+  });
+</script>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

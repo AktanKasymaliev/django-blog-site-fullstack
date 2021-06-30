@@ -10,25 +10,20 @@
 
 {% block body %}
       <div class="parent">
-        <div class="block" style="margin-top: 30px; border-radius: 20px; height: 100%;">
+        <div class="block" style="margin-top: 30px; border-radius: 20px; height: 100%; padding-bottom: 1px;">
             <br>
-            <h4 class='title'>Интересное</h4>
+            <h2 class='title' style="font-family:'Times New Roman', Times, serif;">Интересное</h2>
             <br>
         {% if posts %}
         {% for el in posts %}
           {% autoescape off %}
-            <div class="card mb-5" style="border-radius: 20px; margin-left: 10px; margin-right: 10px; padding-bottom: 20px;">
+            <div class="card mb-5" style="border-radius: 20px; margin-left: 10px; margin-right: 10px; padding-bottom: 30px;">
                 <div class="card-header">
-                    {{el.created_at}} by {{el.owner}}
+                    {{el.created_at}}
                 </div>
-                <div class="card-body">
+                <div class="card-body" >
                     <h5 class="card-title">{{ el.title }}</h5>
                     <p class="card-text">{{ el.text|truncatewords:20 }}</p>
-                    {% if el.image %}
-                    <img src="{{ el.image.url }}"|default_if_none:"#" style="max-height: 300px; max-width: 300px;">
-                    <br>
-                    <br>
-                    {% endif %}
                     <a href="{% url 'read' pk=el.id %}" class="btn btn-primary">Read</a>
                 </div>
                 <div class="card-header">

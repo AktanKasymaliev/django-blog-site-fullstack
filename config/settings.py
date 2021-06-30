@@ -28,6 +28,7 @@ DEBUG = eval(os.environ.get("DJANGO_DEBUG"))
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
+AUTH_USER_MODEL = 'customUsers.User'
 
 # Application definition
 
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     
     'blogs',
     'api',
+    'customUsers',
 
     'rest_framework',
     "ckeditor",

@@ -1,6 +1,6 @@
 from django.db import models
 from ckeditor_uploader.fields import RichTextUploadingField
-from django.contrib.auth.models import User
+from customUsers.models import User
 from .manager import CommentManager, ManagerCustom
 
 class Post(models.Model):
