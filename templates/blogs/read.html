@@ -69,13 +69,17 @@
             </div>
 
           <div class="mb-3" style="margin-left: 300px; margin-top: 25px; position: absolute;">
+            {% if user.is_authenticated %}
             <h5 id='leave_com'>Оставить комментарий</h5>
             <div class="mb-2" style="width: 500px;">
               <label for="exampleFormControlTextarea1" class="form-label">Написать комментарий</label>
               <textarea class="form-control textarea_message" id="exampleFormControlTextarea1" rows="3"></textarea>
             </div>
               <button type="submit" id='btn' class="btn btn-primary  btn-lg">Отправить</button>
-            
+            {% else %}
+            <h5 id='leave_com'>Что бы оставить комментарий, авторизуйтесь</h5>
+            <a href="{% url 'login' %}"><button type="submit" id='btn-for-log' class="btn btn-primary ">Войти в аккаунт</button></a>
+            {% endif %}
               <!-- <div id="successful" style="width: 200px; margin-left: 550px;">
                 <div id="container" style="background-color: cadetblue; height: 150px;">
                   asdasdasdas

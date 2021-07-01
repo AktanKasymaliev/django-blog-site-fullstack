@@ -12,7 +12,7 @@
       <div class="parent">
         <div class="block" style="margin-top: 30px; border-radius: 20px; height: 100%; padding-bottom: 1px;">
             <br>
-            <h2 class='title' style="font-family:'Times New Roman', Times, serif;">Интересное</h2>
+            <h2 class='title' style="font-family:'Times New Roman', Times, serif;">Найдено по {{ posts.tag }}</h2>
             <br>
         {% if posts %}
         {% for el in posts %}
@@ -28,7 +28,7 @@
                 </div>
                 <div class="card-header">
                   {% if el.tag %}
-                  Tag: <a href="{% url 'tagview' tag=el.tag%}">{{ el.tag }}</a>
+                  Tag: <a href="#">{{ el.tag }}</a>
                   {% else %}
                   Tag: <a href="#">Тэга нет</a>
                   {% endif %}

@@ -8,23 +8,16 @@ from .forms import LogInForm, SignUpForm
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from .funcs import make_pagination
 
 class HomePage(generic.ListView):
     template_name = 'blogs/home.html'
     model = Post
 
     def get(self, request):
-        context = {}
         all_posts = Post.objects.all()
-        paginator = Paginator(all_posts, 2)
-        page = request.GET.get('page', 1)
-        context["page"] = page
-        try:
-            context["posts"] = paginator.page(page)
-        except PageNotAnInteger:
-            context["posts"] = paginator.page(1)
-        except EmptyPage:
-            context["posts"] = paginator.page(paginator.num_pages)
+        context = make_pagination(
+            request, all_posts, {}, 'posts', 2)
         return render(request, 'blogs/home.html', context)
 
 class DetailPage(generic.DetailView):
@@ -43,19 +36,20 @@ class DetailPage(generic.DetailView):
     @get_query
     # @query_debugger
     def get(self, request, *args, **kwargs):
-        context_data = {}
         all_comments = self.comments
-        paginator = Paginator(all_comments, 3)
-        page = request.GET.get('page', 1)
-        context_data["page"] = page
-        try:
-            context_data["comments"] = paginator.page(page)
-        except PageNotAnInteger:
-            context_data["comments"] = paginator.page(1)
-        except EmptyPage:
-            context_data["comments"] = paginator.page(paginator.num_pages)
-        self.context_data = context_data
+        self.context_data = make_pagination(
+            request, all_comments, {}, 'comments', 3)
         return super().get(request, *args, **kwargs)
+
+class TagView(generic.View):
+
+    def get(self, request, tag):
+        all_posts = Post.objects.filter(tag=tag)
+        context = make_pagination(
+            request, all_posts, {}, 'posts', 2)
+        return render(request, 'blogs/tag.html', context)
+
+
 
 class RegisterView(generic.CreateView):
     template_name = 'auth/register.html'

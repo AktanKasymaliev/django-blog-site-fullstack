@@ -7,7 +7,7 @@ class ManagerCustom(Manager):
         return super().get_queryset().filter(in_archive=False).order_by('-created_at')
     
     def filter(self, *args, **kwargs):
-        return super().filter(*args, **kwargs).order_by('-created_at')
+        return super().filter(in_archive=False, *args, **kwargs).order_by('-created_at')
     
 class CommentManager(Manager):
 

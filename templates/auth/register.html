@@ -10,7 +10,7 @@
 
 {% block body %}
 <div class="parent">
-    <div class="block" style="margin-top: 30px; border-radius: 20px;">
+    <div class="block" style="margin-top: 30px; border-radius: 20px; height: 600px;">
         <br>
         <h2 class='title'>Регистрация</h2>
         <br>
@@ -19,6 +19,11 @@
           {% csrf_token %}
           <center><button type="submit" id='btn' class="btn btn-primary" style=" margin-top: 20px;">Зарегистрироваться</button></center>
         </form>
+
+        <hr>
+        <center><p class="create-account">
+                Уже есть аккаунт? - <a href="{% url 'login' %}">войдите!</a>
+        </p></center>
     </div>
 </div>
 {% endblock body %}

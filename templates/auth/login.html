@@ -24,6 +24,11 @@
             <center><button type="submit" id='btn' class="btn btn-primary" style=" margin-top: 20px;">Войти</button></center>
           </form>
         {% endif %}
+        <br>
+        <hr>
+        <center><p class="create-account">
+                Если нет аккаунта - <a href="{% url 'signup' %}">создайте!</a>
+        </p></center>
     </div>
 </div>
 {% endblock body %}
