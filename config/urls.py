@@ -13,6 +13,7 @@ urlpatterns = [
 ]
 
 handler404 = 'blogs.responses.handlers.handler404'
+handler500 = 'blogs.responses.handlers.handler500'
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_URL)
