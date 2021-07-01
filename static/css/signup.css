@@ -1,0 +1,20 @@
+.block {
+    margin-top: 200px;
+    width: 1000px;
+    height: 550px;
+    margin: auto;
+    background-color: white;
+}
+
+.title {
+    text-align: center;
+    font-family:'Times New Roman', Times, serif;
+}
+
+#staticEmail {
+    width: 350px;
+}
+
+#inputPassword {
+    width: 350px;
+}

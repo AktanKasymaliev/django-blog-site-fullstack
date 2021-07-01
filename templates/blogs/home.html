@@ -22,8 +22,8 @@
                     {{el.created_at}}
                 </div>
                 <div class="card-body" >
-                    <h5 class="card-title">{{ el.title }}</h5>
-                    <p class="card-text">{{ el.text|truncatewords:20 }}</p>
+                    <h5 class="card-title" style="font-style: italic;">Title: {{ el.title }}</h5>
+                    <p class="card-text" style="font-size: small;">{{ el.text|truncatewords:20 }}</p>
                     <a href="{% url 'read' pk=el.id %}" class="btn btn-primary">Read</a>
                 </div>
                 <div class="card-header">
@@ -37,7 +37,9 @@
           {% endautoescape %}
         {% endfor %}
         {% else %}
-            <h6 style="text-align: center; font-size: 50px; margin-top: 200px;">Пока нет никаких публикаций</h6>
+            <h6 style="text-align: center; font-size: 50px; margin-top: 20px;
+             margin-bottom: 50px; font-family:'Times New Roman', Times, serif;">Пока нет никаких публикаций ;(</h6>
+            <center><img src="https://media.giphy.com/media/MarYoZ2BIJUimKydXa/giphy.gif" alt="sorry" style="margin-bottom: 50px;"></center>
         {% endif %}
       </div>
     </div>

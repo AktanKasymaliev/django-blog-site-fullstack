@@ -22,7 +22,7 @@ class UserManager(BaseUserManager):
             email=self.normalize_email(email),
             username=username,
         )
-        user.is_active = True
+
         user.is_superuser = True
         user.is_staff = True
         user.set_password(password)
@@ -34,7 +34,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=122)
     email = models.EmailField(_('Email'), unique=True)
     password = models.CharField(max_length=255)
-    is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
 

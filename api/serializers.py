@@ -1,7 +1,7 @@
-import re
 from rest_framework import serializers
 from blogs.models import Comments
 from django.utils import timezone
+from customUsers.models import User
 
 class CommentsSerializer(serializers.ModelSerializer):
 
@@ -22,3 +22,10 @@ class CommentsSerializer(serializers.ModelSerializer):
         repres["sent_at"] = instance.sent_at
         repres['author'] = instance.author.username
         return repres
+
+# Users 
+class UsersSerializers(serializers.ModelSerializer):
+
+    class Meta:
+        model = User 
+        fields = ('id', 'username', 'email', 'is_active')
