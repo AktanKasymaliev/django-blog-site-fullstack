@@ -1,6 +1,7 @@
-from rest_framework import serializers
-from blogs.models import Comments
 from django.utils import timezone
+from rest_framework import serializers
+
+from blogs.models import Comments
 from customUsers.models import User
 
 class CommentsSerializer(serializers.ModelSerializer):

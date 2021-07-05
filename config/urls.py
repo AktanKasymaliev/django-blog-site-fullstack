@@ -4,6 +4,7 @@ from django.conf.urls import url
 from django.conf import settings 
 from django.conf.urls.static import static
 from django.views.static import serve 
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -14,6 +15,8 @@ urlpatterns = [
 
 handler404 = 'blogs.responses.handlers.handler404'
 handler500 = 'blogs.responses.handlers.handler500'
+
+urlpatterns += staticfiles_urlpatterns()
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_URL)

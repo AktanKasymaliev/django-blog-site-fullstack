@@ -12,5 +12,5 @@ class CommentsView(generics.CreateAPIView):
 # Users 
 class UsersView(generics.ListAPIView):
     serializer_class = UsersSerializers
-    queryset = User.object.all()
+    queryset = User.objects.all()
     permission_classes = [IsAdminUser]
