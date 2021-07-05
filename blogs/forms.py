@@ -21,13 +21,13 @@ class SignUpForm(forms.ModelForm):
         'placeholder': 'Повторите пароль',
     }))
 
-    def clean(self):
+    def clean(self, password1=None, password2=None):
         if not self.cleaned_data['password'] == self.cleaned_data['password2'] or not self.cleaned_data['password2']:
             self._errors['password2'] = self.error_class(['Пароли не совпадают'])
         return self.cleaned_data
 
     def save(self, commit=True):
-        return User.object.create_user(email=self.cleaned_data['email'], 
+        return User.objects.create_user(email=self.cleaned_data['email'], 
                 username=self.cleaned_data['username'], password=self.cleaned_data['password'])
 
     class Meta:

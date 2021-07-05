@@ -1,9 +1,9 @@
 from customUsers.models import User
-from blogs.models import Comments, Post
+from blogs.models import Post
 from django.views import generic
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import redirect, render
 from .decorators import get_query, query_debugger
+from django.http import HttpResponse
 from .forms import LogInForm, SignUpForm
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
@@ -59,6 +59,16 @@ class RegisterView(generic.CreateView):
     def get_success_url(self) -> str:
         return reverse('home')
 
+    def post(self, request, *args: str, **kwargs):
+        pass1 = request.POST['password']
+        pass2 = request.POST['password2']
+        if pass1 != pass2:
+            post = super().post(request, *args, **kwargs)
+            post.status_code = 400
+            return post
+        messages.add_message(request, messages.SUCCESS, "Sign Up successfully")
+        return super().post(request, *args, **kwargs)
+
 
 class LogInView(generic.View):
 
@@ -83,6 +93,7 @@ class LogInView(generic.View):
         if context['has_error']:
             return render(request, 'auth/login.html', status=401, context=context)
         login(request, user)
+        messages.add_message(request, messages.SUCCESS, "Log In successfully")
         return redirect('home')
 
 class LogOutView(generic.View):
